@@ -851,9 +851,9 @@ def area_of_polygon(xy: np.ndarray) -> float:
     apply shoelace algorithm on collection of xy vertex pairs
     https://stackoverflow.com/questions/24467972/calculate-area-of-polygon-given-x-y-coordinates
     """
-    return 0.5 * np.abs(
+    return float(0.5 * np.abs(
         np.dot(xy[:, 0], np.roll(xy[:, 1], 1)) - np.dot(xy[:, 1], np.roll(xy[:, 0], 1))
-    )
+    ))
 
 
 def find_circles(dqplane: np.ndarray, bitmask: np.ndarray, min_area: float) -> list[Circle]:

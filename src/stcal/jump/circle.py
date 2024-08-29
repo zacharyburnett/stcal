@@ -1,5 +1,5 @@
 import random
-from typing import Union, Optional
+from typing import Optional, Union
 
 import numpy
 
@@ -87,7 +87,7 @@ class Circle:
 def _expand_circle_from_one_point(
         known_boundary_point: tuple[float, float],
         points: list[tuple[float, float]],
-) -> Circle | None:
+) -> Circle:
     """
     iteratively expand a circle from one known boundary point to enclose the given set of points
     from https://www.nayuki.io/page/smallest-enclosing-circle
@@ -107,7 +107,7 @@ def _expand_circle_from_two_points(
         known_boundary_point_a: tuple[float, float],
         known_boundary_point_b: tuple[float, float],
         points: list[tuple[float, float]],
-) -> Circle | None:
+) -> Circle:
     """
     iteratively expand a circle from two known boundary points to enclose the given set of points
     from https://www.nayuki.io/page/smallest-enclosing-circle
@@ -150,7 +150,7 @@ def _expand_circle_from_two_points(
     if left is None and right is None:
         return circle
     elif left is None:
-        return right
+        return right if right is not None else Circle(center=(0.0, 0.0), radius=0.0)
     elif right is None:
         return left
     else:
