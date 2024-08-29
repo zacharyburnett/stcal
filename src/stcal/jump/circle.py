@@ -69,7 +69,9 @@ class Circle:
     def __contains__(self, point: tuple[float, float]) -> bool:
         return numpy.hypot(*(numpy.array(point) - self.center)) <= self.radius * RELATIVE_TOLERANCE
 
-    def __eq__(self, other: 'Circle') -> bool:
+    def __eq__(self, other: object) -> bool:
+        if not isinstance(other, Circle):
+            return False
         return numpy.all(self.center == other.center) and self.radius == other.radius
 
     def almost_equals(self, other: 'Circle', delta: Optional[float] = None) -> bool:
