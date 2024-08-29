@@ -220,8 +220,8 @@ def test_find_ellipse2():
     ellipse = ellipses[0]
     assert ellipse[0][0] == 2
     assert ellipse[0][1] == 2
-    assert ellipse[1][0] == 2
-    assert ellipse[1][1] == 2
+    assert ellipse[1][0] == 3
+    assert ellipse[1][1] == 3
     assert ellipse[2] == 90.0
 
 

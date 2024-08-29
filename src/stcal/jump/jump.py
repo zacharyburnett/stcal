@@ -743,7 +743,7 @@ def extend_ellipses(
         center = (round(ceny), round(cenx))
         axes = (round(axis1 / 2), round(axis2 / 2))
         color = (0, 0, 4)
-        ellipse = skimage.draw.ellipse(*center, *axes, rotation=alpha)
+        ellipse = skimage.draw.ellipse(*center, *axes, shape=image.shape, rotation=alpha)
         image[ellipse] = color
         jump_ellipse = image[:, :, 2]
         ngrps = gdq_cube.shape[1]
