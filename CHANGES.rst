@@ -87,11 +87,6 @@ Changes to API
 1.7.3 (2024-07-05)
 ==================
 
-Changes to API
---------------
-
-- replace usage of ``opencv-python`` with analagous functionality from ``scikit-image`` [#138]
-
 Bug Fixes
 ---------
 
