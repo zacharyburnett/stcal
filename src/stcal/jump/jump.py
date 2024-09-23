@@ -653,8 +653,6 @@ def extend_saturation(
     expansion=2, max_extended_radius=200
 ):
     ngroups, nrows, ncols = cube.shape
-    image = np.zeros(shape=(nrows, ncols, 3), dtype=np.uint8)
-    persist_image = np.zeros(shape=(nrows, ncols, 3), dtype=np.uint8)
     outcube = cube.copy()
     for ellipse in sat_ellipses:
         ceny = ellipse[0][0]
@@ -666,32 +664,26 @@ def extend_saturation(
             alpha = ellipse[2]
             axis1 = min(axis1, max_extended_radius)
             axis2 = min(axis2, max_extended_radius)
-            ellipse_rr, ellipse_cc = skimage.draw.ellipse(
+            saty, satx = skimage.draw.ellipse(
                 r=round(ceny),
                 c=round(cenx),
                 r_radius=round(axis1/2),
                 c_radius=round(axis2/2),
-                shape=image.shape,
+                shape=(nrows, ncols, 3),
                 rotation=alpha,
             )
-            image[ellipse_rr, ellipse_cc, 2] = 22
             #  Create another non-extended ellipse that is used to create the
             #  persist_jumps for this integration. This will be used to mask groups
             #  in subsequent integrations.
-            sat_ellipse = image[:, :, 2]  # extract the Blue plane of the image
-            saty, satx = np.where(sat_ellipse == 22)  # find all the ellipse pixels in the ellipse
             outcube[grp:, saty, satx] = sat_flag
-            ellipse_rr, ellipse_cc = skimage.draw.ellipse(
+            persist_saty, persist_satx = skimage.draw.ellipse(
                 r=round(ceny),
                 c=round(cenx),
                 r_radius=round(ellipse[1][0] / 2),
                 c_radius=round(ellipse[1][1] / 2),
-                shape=persist_image.shape,
+                shape=(nrows, ncols, 3),
                 rotation=alpha,
             )
-            persist_image[ellipse_rr, ellipse_cc, 2] = 22
-            persist_ellipse = persist_image[:, :, 2]
-            persist_saty, persist_satx = np.where(persist_ellipse == 22)
             persist_jumps[persist_saty, persist_satx] = jump_flag
     return outcube, persist_jumps
 
@@ -742,9 +734,9 @@ def extend_ellipses(
         alpha = ellipse[2]
         center = (round(ceny), round(cenx))
         axes = (round(axis1 / 2), round(axis2 / 2))
-        color = (0, 0, 4)
-        ellipse = skimage.draw.ellipse(*center, *axes, shape=image.shape, rotation=alpha)
-        image[ellipse] = color
+        color = (0, 0, jump_flag)
+        ellipse_rr, ellipse_cc = skimage.draw.ellipse(*center, *axes, shape=image.shape, rotation=alpha)
+        image[ellipse_rr, ellipse_cc] = color
         jump_ellipse = image[:, :, 2]
         ngrps = gdq_cube.shape[1]
         last_grp = find_last_grp(grp, ngrps, num_grps_masked)
