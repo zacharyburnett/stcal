@@ -1,6 +1,6 @@
 {
-  "template": "https://github.com/zacharyburnett/stsci-package-template",
-  "commit": "d042d258f0aa70967c40f164479c593124009060",
+  "template": "https://github.com/spacetelescope/stsci-package-template",
+  "commit": "e9df785e23884c9ba118e8f7a792e3dbbad3bfcb",
   "checkout": null,
   "context": {
     "cookiecutter": {
@@ -12,12 +12,12 @@
       "manage_changelog_with_towncrier": true,
       "publish_docs_to": "readthedocs.io",
       "task_runner": "tox",
-      "python_version": ">=3.11,<3.15",
+      "python_version": ">=3.11",
       "python_c_extensions": true,
       "python_build_backend": "setuptools",
       "crds_observatory": "none",
-      "_template": "https://github.com/zacharyburnett/stsci-package-template",
-      "_commit": "d042d258f0aa70967c40f164479c593124009060"
+      "_template": "https://github.com/spacetelescope/stsci-package-template",
+      "_commit": "e9df785e23884c9ba118e8f7a792e3dbbad3bfcb"
     }
   },
   "directory": "python-package"
